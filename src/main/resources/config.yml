@@ -1,0 +1,16 @@
+config:
+  allow-worlds:
+    - "world"
+    - "plotsquared"
+
+  messages:
+    only-players: "Somente jogadores in-game podem executar esse comando!"
+    no-permission: "&cVocê não tem permissão para executar esse comando!"
+    blockbreak-actionbar-message: "&aA quebra do/a {block} lhe rendeu {coins} coins!"
+
+  configuration:
+    enable: true
+    multiplier: 1.0
+    allowed-itens:
+      DIRT: 10
+      GRASS: 100
