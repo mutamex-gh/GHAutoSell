@@ -3,6 +3,8 @@ package me.gustavo.ghautosell.listener;
 import lombok.val;
 import me.gustavo.ghautosell.GHAutoSell;
 import me.gustavo.ghautosell.configuration.ConfigMessages;
+import me.gustavo.ghautosell.configuration.ConfigValues;
+import me.gustavo.ghautosell.hook.EconomyHook;
 import me.gustavo.ghautosell.utils.ActionBarUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -28,7 +30,7 @@ public class BlockBreakListener implements Listener {
         val isEnable = ConfigMessages.get(ConfigMessages::enableAutoSell);
         val multiplier = ConfigMessages.get(ConfigMessages::multiplier);
         val worlds = ConfigMessages.get(ConfigMessages::allowedWorlds);
-        Map<Material, Double> allowedToBreak = GHAutoSell.loadAllowedToBreak();
+        Map<Material, Double> allowedToBreak = ConfigValues.loadAllowedToBreak();
 
         if(!allowedToBreak.containsKey(block.getType())) return;
         if(!worlds.contains(block.getWorld().getName())) return;
@@ -42,7 +44,7 @@ public class BlockBreakListener implements Listener {
             }
 
             double multipliedPrice = price * multiplier;
-            GHAutoSell.getEconomy().depositPlayer(player, multipliedPrice);
+            EconomyHook.getEconomy().depositPlayer(player, multipliedPrice);
 
             ActionBarUtils.sendActionBar(
                     player,
