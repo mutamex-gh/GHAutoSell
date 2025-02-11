@@ -3,52 +3,71 @@ package me.gustavo.ghautosell;
 import com.google.common.base.Stopwatch;
 import com.henryfabio.minecraft.configinjector.bukkit.injector.BukkitConfigurationInjector;
 import lombok.val;
-import me.gustavo.ghautosell.configuration.ConfigMessages;
+import me.gustavo.ghautosell.commands.Commands;
 import me.gustavo.ghautosell.configuration.registry.ConfigRegistry;
+import me.gustavo.ghautosell.database.connection.DatabaseConnection;
 import me.gustavo.ghautosell.hook.EconomyHook;
+import me.gustavo.ghautosell.inventories.SectionConstructor;
 import me.gustavo.ghautosell.listener.BlockBreakListener;
-import net.milkbowl.vault.economy.Economy;
+import me.gustavo.ghautosell.listener.InventoryListener;
+import me.gustavo.ghautosell.listener.PlayerJoinListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.sql.SQLException;
 import java.util.logging.Level;
 
 public class GHAutoSell extends JavaPlugin {
 
-    private static Economy econ = null;
+    private DatabaseConnection databaseConnection;
 
     @Override
     public void onEnable() {
-        val initTimer = Stopwatch.createStarted();
+        try{
+            val initTimer = Stopwatch.createStarted();
 
-        EconomyHook.register();
-        ConfigRegistry.register();
+            saveDefaultConfig();
+            new SectionConstructor();
 
-        registerConfigInjector();
-        loadListeners();
+            ConfigRegistry.register();
+            EconomyHook.register();
 
-        initTimer.stop();
-        getLogger().log(Level.INFO, "Plugin inicializado com sucesso! ({0})", initTimer);
+            openDatabaseConnection();
+
+            loadListeners();
+            loadCommand();
+
+
+            initTimer.stop();
+            getLogger().log(Level.INFO, "Plugin inicializado com sucesso! ({0})", initTimer);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void registerConfigInjector() {
-        BukkitConfigurationInjector configurationInjector = new BukkitConfigurationInjector(this);
+    @Override
+    public void onDisable() {
+        try {
+            databaseConnection.closeConnection();
+            getLogger().info("Conexão com banco de dados desativado com sucesso!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-        configurationInjector.saveDefaultConfiguration(
-                this,
-                "config.yml"
-        );
-
-        configurationInjector.injectConfiguration(
-                ConfigMessages.instance()
-        );
+    public void openDatabaseConnection() {
+        databaseConnection = new DatabaseConnection(this);
+        databaseConnection.openConnection();
     }
 
     public void loadListeners() {
-        Bukkit.getPluginManager().registerEvents(
-                new BlockBreakListener(),
-                this
-        );
+        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(databaseConnection), this);
+        Bukkit.getPluginManager().registerEvents(new BlockBreakListener(), this);
+        Bukkit.getPluginManager().registerEvents(new InventoryListener(), this);
+    }
+
+    public void loadCommand() {
+        getCommand("autosell").setExecutor(new Commands());
     }
 
     public static GHAutoSell getInstance() {

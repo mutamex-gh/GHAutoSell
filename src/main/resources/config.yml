@@ -1,3 +1,26 @@
+##############################################
+#               GHAutosell                   #
+#             version: 1.1.0                 #
+##############################################
+#
+# github.com/mutamex-gh/
+# Discord: mutamex
+#
+# Permissão: ghautosell.openinventory (abre o /autosell)
+#
+database:
+  type: 'sqlite' # Tipos: 'sqlite' e 'mysql'
+  mysql:
+    address: 'localhost:3306'
+    username: 'root'
+    password: ''
+    database: 'database'
+
+##############################################
+#             MENSAGENS E CONFIGS            #
+##############################################
+#
+# Mundos permitidos para a "ativação" do plugin
 config:
   allow-worlds:
     - "world"
@@ -6,11 +29,58 @@ config:
   messages:
     only-players: "Somente jogadores in-game podem executar esse comando!"
     no-permission: "&cVocê não tem permissão para executar esse comando!"
-    blockbreak-actionbar-message: "&aA quebra do/a {block} lhe rendeu {coins} coins!"
+    blockbreak-actionbar-message: "&fVocê recebeu &2$&a{coins} (Fortuna {fortune}) &fQuebrados: &e{amountbreak}"
+    reward-message:
+      - " "
+      - "           &a&lRECOMPENSA"
+      - "&f Você recebeu uma recompensa"
+      - "&fpor quebrar {amount} de blocos!"
+      - " "
 
   configuration:
     enable: true
+    # Conta base: (preço * fortune(Vai variar, por exemplo fortuna 3: pode vir 100,200 ou 300 se o valor padrão ser 100)) * multiplier;
     multiplier: 1.0
-    allowed-itens:
+    allowed-itens: # Crie quantos quiser no formato (bloco:money)
       DIRT: 10
       GRASS: 100
+
+##############################################
+#               REWARDS SECTION              #
+##############################################
+#
+# Variaveis:
+#   {player} - Variavel para pegar o player
+#   {current} - Blocos ja quebrados pelo jogador
+#   {necessary} - Blocos necessarios para a recompensa
+#   {received} - Mensagem após ja ter recebido a recompensa
+#
+# Sempre coloque {received} ao final das lores, como está nos exemplos abaixo!
+rewards:
+  r1:
+    material: GOLD_INGOT
+    name: "&a&lRECOMPENSA 01"
+    lore:
+      - "&7Uma recompensa especial!"
+      - "  &7Recompensa: &f1x BARRA DE FERRO!"
+      - " "
+      - "  &fProgresso: &a{current}&2/&a{necessary}"
+      - "{received}"
+    slot: 12
+    necessary: 700
+    command:
+      - "give {player} iron_ingot 1"
+
+  r2:
+    material: DIAMOND
+    name: "&a&lRECOMPENSA 02"
+    lore:
+      - "&7Uma recompensa especial!"
+      - "  &7Recompensa: &f1x DIAMOND"
+      - " "
+      - "  &fProgresso: &a{current}&2/&a{necessary}"
+      - "{received}"
+    slot: 13
+    necessary: 1000
+    command:
+      - "give {player} diamond 1"

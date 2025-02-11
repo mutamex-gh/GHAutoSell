@@ -27,6 +27,7 @@ public final class ConfigMessages implements ConfigurationInjectable {
     @ConfigField("messages.only-players") private String onlyPlayers;
     @ConfigField("messages.no-permission") private String noPermission;
     @ConfigField("messages.blockbreak-actionbar-message") private String blockBreakMessage;
+    @ConfigField("messages.reward-message") private List<String> rewardMessage;
 
     //configuration
     @ConfigField("configuration.enable") private boolean enableAutoSell;
