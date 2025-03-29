@@ -49,12 +49,13 @@ public class BlockBreakListener implements Listener {
                 }
             }
 
-
             double multipliedPrice = price * multiplier;
             EconomyHook.getEconomy().depositPlayer(player, multipliedPrice);
 
             DatabaseConnection.updatePlayerBlocks(player.getUniqueId().toString(), 1);
             SectionConstructor.checkAndGiveReward(player);
+
+            val playerBlocks = FormatNumbers.format(DatabaseConnection.getPlayerBlocks(player.getUniqueId().toString()));
 
             ActionBarUtils.sendActionBar(
                     player,
@@ -62,7 +63,7 @@ public class BlockBreakListener implements Listener {
                             .replace("{material}", block.getType().toString())
                             .replace("{coins}", FormatNumbers.format(multipliedPrice))
                             .replace("{fortune}", String.valueOf(player.getItemInHand().getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS)))
-                            .replace("{amountbreak}", FormatNumbers.format(DatabaseConnection.getPlayerBlocks(player.getUniqueId().toString())))
+                            .replace("{amountbreak}", playerBlocks)
             );
 
             block.setType(Material.AIR);

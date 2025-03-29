@@ -27,9 +27,7 @@ public class Commands implements CommandExecutor {
                 InventoryItens.setProfile(player);
 
                 player.openInventory(AutoSellInventory.getInventory());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            } catch (SQLException ignore) {}
         }else {
             player.sendMessage(ConfigMessages.get(ConfigMessages::noPermission));
             return true;

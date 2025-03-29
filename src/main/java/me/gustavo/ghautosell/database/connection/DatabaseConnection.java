@@ -12,7 +12,9 @@ public class DatabaseConnection {
     private static Connection connection;
 
     public void openConnection() {
-        if(plugin.getConfig().getString("database.type").equalsIgnoreCase("mysql")) {
+        String DB_TYPE = plugin.getConfig().getString("database.type");
+
+        if(DB_TYPE.equalsIgnoreCase("mysql")) {
 
             String ADDRESS = plugin.getConfig().getString("database.mysql.address");
             String USERNAME = plugin.getConfig().getString("database.mysql.username");
@@ -30,7 +32,7 @@ public class DatabaseConnection {
                 plugin.getLogger().info("Não foi possivel conectar com o MySQL");
             }
 
-        }else if(plugin.getConfig().getString("database.type").equalsIgnoreCase("sqlite")) {
+        }else if(DB_TYPE.equalsIgnoreCase("sqlite")) {
             if (!plugin.getDataFolder().exists()) {
                 plugin.getDataFolder().mkdirs();
             }

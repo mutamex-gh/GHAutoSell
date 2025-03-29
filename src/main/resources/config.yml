@@ -1,6 +1,6 @@
 ##############################################
 #               GHAutosell                   #
-#             version: 1.1.0                 #
+#             version: 1.1.1                 #
 ##############################################
 #
 # github.com/mutamex-gh/
@@ -29,7 +29,7 @@ config:
   messages:
     only-players: "Somente jogadores in-game podem executar esse comando!"
     no-permission: "&cVocê não tem permissão para executar esse comando!"
-    blockbreak-actionbar-message: "&fVocê recebeu &2$&a{coins} (Fortuna {fortune}) &fQuebrados: &e{amountbreak}"
+    blockbreak-actionbar-message: "&2$&a{coins} (Fortuna {fortune}) &fQuebrados: &e{amountbreak}"
     reward-message:
       - " "
       - "           &a&lRECOMPENSA"

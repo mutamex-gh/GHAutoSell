@@ -1,7 +1,6 @@
 package me.gustavo.ghautosell;
 
 import com.google.common.base.Stopwatch;
-import com.henryfabio.minecraft.configinjector.bukkit.injector.BukkitConfigurationInjector;
 import lombok.val;
 import me.gustavo.ghautosell.commands.Commands;
 import me.gustavo.ghautosell.configuration.registry.ConfigRegistry;

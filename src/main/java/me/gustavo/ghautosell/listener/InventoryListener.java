@@ -1,7 +1,6 @@
 package me.gustavo.ghautosell.listener;
 
 import lombok.val;
-import me.gustavo.ghautosell.inventories.AutoSellInventory;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
