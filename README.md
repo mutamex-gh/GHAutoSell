@@ -1,12 +1,13 @@
 # GHAutoSell
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/feb4f2ef8b0248acb643b3fb88695ae6)](https://app.codacy.com/gh/mutamex-gh/GHAutoSell/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
-# Sobre o plugin:
+# Sobre o GHAutoSell:
 - Plugin de auto-sell com possibilidade de criar recompensas com meta de blocos;
 - Possibilidade de configurar o multiplier;
 - Mensagens de recompensa em chat;
 - Totalmente configuravel;
 - Banco de dados via SQLite ou MySQL;
 
+# Plugin
 - Dependencias: Vault
 - Download: [clique aqui](https://github.com/mutamex-gh/GHAutoSell/releases/download/GHAutosell/GHAutoSell.jar)
 - Version: 1.1.0
